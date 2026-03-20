@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#0a0a0f">
+<title>Matka King</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{--bg:#0a0a0f;--bg2:#12121a;--bg3:#1a1a26;--card:#1e1e2e;--border:rgba(255,255,255,0.08);--text:#e8e8f0;--muted:#6060a0;--r:12px;--rs:8px;--ac:#5b8af7;--acbg:rgba(91,138,247,0.12)}
+body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;overflow-x:hidden}
+.hdr{background:var(--bg2);padding:10px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+.logo{font-size:18px;font-weight:900;color:var(--ac);letter-spacing:1px}
+.rbadge{background:var(--acbg);color:var(--ac);padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700}
+.gsel{background:var(--bg2);border-bottom:1px solid var(--border);padding:10px 12px}
+.gsel-lbl{font-size:10px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:7px}
+.ggrid{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}
+.gbtn{padding:7px 4px;border-radius:var(--rs);border:1px solid var(--border);background:var(--bg3);color:var(--muted);font-size:10px;font-weight:600;cursor:pointer;text-align:center;line-height:1.3;transition:all .15s}
+.gbtn.on{background:var(--acbg);color:var(--ac);border-color:var(--ac)}
+.gbar{padding:8px 14px;background:var(--acbg);border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.gbar-name{font-size:13px;font-weight:800;color:var(--ac)}
+.gbar-cnt{font-size:11px;color:var(--muted)}
+.nav{display:flex;background:var(--bg2);border-bottom:1px solid var(--border);overflow-x:auto;padding:0 10px}
+.nav::-webkit-scrollbar{display:none}
+.nb{padding:11px 13px;background:none;border:none;color:var(--muted);font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent}
+.nb.on{color:var(--ac);border-bottom-color:var(--ac)}
+.pg{display:none;padding:12px}
+.pg.on{display:block}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:12px;margin-bottom:10px}
+.ct{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px}
+.met{background:var(--bg3);border-radius:var(--rs);padding:10px;border:1px solid var(--border)}
+.met .lb{font-size:10px;color:var(--muted);margin-bottom:3px}
+.met .vl{font-size:20px;font-weight:800}
+.badge{display:inline-block;padding:3px 8px;border-radius:5px;font-size:11px;font-weight:700;margin:2px;cursor:pointer}
+.bdg-ac{background:var(--acbg);color:var(--ac)}
+.bdg-a{background:rgba(240,180,41,.12);color:#f0b429}
+.bdg-g{background:rgba(61,214,140,.12);color:#3dd68c}
+.btn{display:block;width:100%;padding:13px;border-radius:var(--rs);border:none;font-size:14px;font-weight:700;cursor:pointer;text-align:center}
+.btn-ac{background:var(--ac);color:#fff}
+.btn-g{background:#3dd68c;color:#000}
+input,select,textarea{width:100%;padding:11px;border-radius:var(--rs);border:1px solid var(--border);background:var(--bg3);color:var(--text);font-size:14px;margin-bottom:8px;outline:none}
+input:focus,select:focus{border-color:var(--ac)}
+textarea{resize:vertical;font-family:monospace;font-size:12px;min-height:80px}
+label{font-size:11px;color:var(--muted);display:block;margin-bottom:3px;font-weight:600}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{text-align:left;padding:7px 5px;color:var(--muted);font-weight:700;font-size:10px;text-transform:uppercase;border-bottom:1px solid var(--border)}
+td{padding:7px 5px;border-bottom:1px solid rgba(255,255,255,.04)}
+.sm{padding:10px;border-radius:var(--rs);font-size:12px;margin-top:6px;display:none;font-weight:500}
+.sm.on{display:block}
+.sok{background:rgba(61,214,140,.12);color:#3dd68c}
+.serr{background:rgba(247,91,91,.12);color:#f75b5b}
+.fr{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:6px;align-items:end}
+.div{border:none;border-top:1px solid var(--border);margin:10px 0}
+.lr{display:flex;align-items:center;justify-content:center;gap:10px;padding:12px;background:var(--bg3);border-radius:var(--rs);margin-bottom:10px;border:1px solid var(--border)}
+.lr-box{text-align:center}
+.lr-lb{font-size:9px;color:var(--muted);font-weight:700;text-transform:uppercase;margin-bottom:3px}
+.lr-n{font-size:22px;font-weight:900}
+.pnum{font-size:36px;font-weight:900;letter-spacing:6px;margin:6px 0}
+.pjodi{display:inline-flex;align-items:center;justify-content:center;width:56px;height:56px;border-radius:var(--rs);font-size:20px;font-weight:900;margin:4px;background:var(--acbg);color:var(--ac);border:2px solid var(--ac)}
+.algrow{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border);font-size:12px}
+.algrow:last-child{border:none}
+.cbg{width:80px;height:5px;background:var(--bg3);border-radius:3px;overflow:hidden}
+.cb{height:5px;border-radius:3px;background:var(--ac)}
+.plog-item{background:var(--bg3);border-radius:var(--rs);padding:10px;margin-bottom:6px;border:1px solid var(--border)}
+.si{display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:1px solid var(--border)}
+.si:last-child{border:none}
+.sl{font-size:14px;font-weight:500}
+.ss{font-size:11px;color:var(--muted);margin-top:2px}
+.del-btn{background:rgba(247,91,91,.12);color:#f75b5b;border:1px solid #f75b5b;padding:5px 10px;border-radius:6px;cursor:pointer;font-size:11px;font-weight:700}
+.exp-btn{background:rgba(61,214,140,.12);color:#3dd68c;border:1px solid #3dd68c;padding:8px 12px;border-radius:var(--rs);cursor:pointer;font-size:12px;font-weight:700}
+.chart-box{position:relative;width:100%}
+.sr{display:flex;gap:8px;margin-bottom:10px}
+.sr input,.sr select{margin:0}
+.sr select{width:140px;flex-shrink:0}
+@media(max-width:380px){.g4{grid-template-columns:repeat(2,1fr)}.fr{grid-template-columns:1fr 1fr}.ggrid{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="hdr">
+  <div class="logo">MATKA KING</div>
+  <div class="rbadge" id="hc">0 rec</div>
+</div>
+<div class="gsel">
+  <div class="gsel-lbl">Game Select Karo</div>
+  <div class="ggrid" id="ggrid"></div>
+</div>
+<div class="gbar">
+  <div class="gbar-name" id="gname">KALYAN</div>
+  <div class="gbar-cnt" id="gcnt">0 records</div>
+</div>
+<div class="nav">
+  <button class="nb on" onclick="sp('dash')">Dashboard</button>
+  <button class="nb" onclick="sp('pred')">AI Predict</button>
+  <button class="nb" onclick="sp('data')">Data</button>
+  <button class="nb" onclick="sp('charts')">Charts</button>
+  <button class="nb" onclick="sp('hist')">History</button>
+  <button class="nb" onclick="sp('analysis')">Analysis</button>
+  <button class="nb" onclick="sp('trends')">Trends</button>
+  <button class="nb" onclick="sp('settings')">Settings</button>
+</div>
+
+<div id="pg-dash" class="pg on">
+  <div class="g4">
+    <div class="met"><div class="lb">Records</div><div class="vl" id="d-tot">0</div></div>
+    <div class="met"><div class="lb">Top Jodi</div><div class="vl" id="d-tj">--</div></div>
+    <div class="met"><div class="lb">Top Open</div><div class="vl" id="d-to">--</div></div>
+    <div class="met"><div class="lb">Top Close</div><div class="vl" id="d-tc">--</div></div>
+  </div>
+  <div id="d-lr"></div>
+  <div class="card"><div class="ct">Last 7 Results</div><div class="tw"><div id="d-l7"></div></div></div>
+  <div class="card"><div class="ct">Hot Jodis (Top 15)</div><div id="d-hj"></div></div>
+  <div class="card">
+    <div class="ct">Digit Frequency</div>
+    <div class="g2">
+      <div><div style="font-size:10px;color:var(--muted);font-weight:700;margin-bottom:5px">OPEN</div><div id="d-od"></div></div>
+      <div><div style="font-size:10px;color:var(--muted);font-weight:700;margin-bottom:5px">CLOSE</div><div id="d-cd"></div></div>
+    </div>
+  </div>
+</div>
+
+<div id="pg-pred" class="pg">
+  <div class="card">
+    <div class="ct">AI Prediction — 6 Algorithms</div>
+    <div class="g2">
+      <div style="text-align:center"><div style="font-size:10px;color:var(--muted);font-weight:700;margin-bottom:4px">OPEN</div><div class="pnum" id="p-o" style="color:var(--ac)">---</div></div>
+      <div style="text-align:center"><div style="font-size:10px;color:var(--muted);font-weight:700;margin-bottom:4px">CLOSE</div><div class="pnum" id="p-c" style="color:#3dd68c">---</div></div>
+    </div>
+    <div style="font-size:10px;color:var(--muted);font-weight:700;margin-bottom:8px;text-align:center">TOP 3 JODIS</div>
+    <div id="p-j" style="text-align:center;margin-bottom:12px"></div>
+    <div class="div"></div>
+    <div class="ct">Algorithm Confidence</div>
+    <div id="p-al"></div>
+    <div class="div"></div>
+    <button class="btn btn-ac" id="pred-btn" onclick="runAI()">Generate AI Prediction</button>
+    <div id="p-st" class="sm"></div>
+  </div>
+  <div class="card"><div class="ct">Prediction Log</div><div id="p-log"></div></div>
+</div>
+
+<div id="pg-data" class="pg">
+  <div class="card">
+    <div class="ct">Naya Result Add Karo</div>
+    <div class="fr">
+      <div><label>Date (DD/MM/YYYY)</label><input id="fd" placeholder="17/03/2026"></div>
+      <div><label>Open</label><input id="fo" placeholder="123" maxlength="3" type="number"></div>
+      <div><label>Jodi</label><input id="fj" placeholder="45" maxlength="2" type="number"></div>
+      <div><label>Close</label><input id="fc" placeholder="678" maxlength="3" type="number"></div>
+    </div>
+    <button class="btn btn-g" onclick="addEntry()">+ Add Entry</button>
+    <div id="as" class="sm"></div>
+  </div>
+  <div class="card">
+    <div class="ct">Bulk Import</div>
+    <div style="font-size:11px;color:var(--muted);margin-bottom:6px">Format: date open jodi close (ek line = ek entry)</div>
+    <textarea id="bi" placeholder="17/03/2026 123 45 678&#10;18/03/2026 456 78 234"></textarea>
+    <button class="btn btn-ac" onclick="bulkImp()">Bulk Import</button>
+    <div id="bs" class="sm"></div>
+  </div>
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+      <div class="ct" style="margin:0">Recent Entries</div>
+      <button class="exp-btn" onclick="expCSV()">Export CSV</button>
+    </div>
+    <div class="tw"><table><thead><tr><th>Date</th><th>Open</th><th>Jodi</th><th>Close</th><th></th></tr></thead><tbody id="dtbl"></tbody></table></div>
+  </div>
+</div>
+
+<div id="pg-charts" class="pg">
+  <div class="card"><div class="ct">Jodi Frequency (Top 20)</div><div class="chart-box" style="height:280px"><canvas id="cj"></canvas></div></div>
+  <div class="card"><div class="ct">Open Digit Frequency</div><div class="chart-box" style="height:180px"><canvas id="co"></canvas></div></div>
+  <div class="card"><div class="ct">Close Digit Frequency</div><div class="chart-box" style="height:180px"><canvas id="cc"></canvas></div></div>
+</div>
+
+<div id="pg-hist" class="pg">
+  <div class="card">
+    <div class="sr">
+      <input id="hs" placeholder="Search..." oninput="rHist()" style="margin:0">
+      <select id="hso" onchange="rHist()" style="margin:0;width:130px;flex-shrink:0">
+        <option value="desc">Newest first</option>
+        <option value="asc">Oldest first</option>
+      </select>
+    </div>
+    <div class="tw"><table><thead><tr><th>Date</th><th>Open</th><th>Jodi</th><th>Close</th><th>O-Sum</th><th>C-Sum</th></tr></thead><tbody id="htbl"></tbody></table></div>
+    <div style="font-size:10px;color:var(--muted);margin-top:6px" id="hcnt"></div>
+  </div>
+</div>
+
+<div id="pg-analysis" class="pg">
+  <div class="card">
+    <div style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap">
+      <button class="badge bdg-ac" onclick="setAT('hm',this)">Heatmap</button>
+      <button class="badge" onclick="setAT('seq',this)" style="background:rgba(255,255,255,.06);color:var(--muted)">Sequence</button>
+      <button class="badge" onclick="setAT('dig',this)" style="background:rgba(255,255,255,.06);color:var(--muted)">Digits</button>
+    </div>
+    <div id="at-hm">
+      <div class="ct">Jodi Heatmap 00-99</div>
+      <div id="hmgrid" style="display:grid;grid-template-columns:repeat(10,1fr);gap:3px"></div>
+      <div style="font-size:10px;color:var(--muted);margin-top:6px">Gahra = zyada baar aaya</div>
+    </div>
+    <div id="at-seq" style="display:none">
+      <div class="ct">Sequence — Last jodi ke baad kaun aata hai</div>
+      <div id="seq-res"></div>
+    </div>
+    <div id="at-dig" style="display:none">
+      <div class="ct">Open Digits — Hot/Warm/Cold</div>
+      <div id="dig-open" style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:12px"></div>
+      <div class="ct">Close Digits</div>
+      <div id="dig-close" style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px"></div>
+    </div>
+  </div>
+</div>
+
+<div id="pg-trends" class="pg">
+  <div class="card">
+    <div class="ct">Monthly Entry Count</div>
+    <div class="chart-box" style="height:220px"><canvas id="cmon"></canvas></div>
+  </div>
+  <div class="card">
+    <div class="ct">Monthly Stats</div>
+    <div class="tw"><table><thead><tr><th>Month</th><th>Count</th><th>Top Jodi</th><th>Freq</th></tr></thead><tbody id="montbl"></tbody></table></div>
+  </div>
+  <div class="card">
+    <div class="ct">Date Range Search</div>
+    <div class="g2">
+      <div><label>From (DD/MM/YYYY)</label><input id="dr-f" placeholder="01/01/2025" style="margin:0"></div>
+      <div><label>To (DD/MM/YYYY)</label><input id="dr-t" placeholder="16/03/2026" style="margin:0"></div>
+    </div>
+    <button class="btn btn-ac" style="margin-top:8px" onclick="rDRange()">Search</button>
+    <div id="dr-res" style="margin-top:10px"></div>
+  </div>
+</div>
+
+<div id="pg-settings" class="pg">
+  <div class="card">
+    <div class="ct">Data</div>
+    <div class="si">
+      <div><div class="sl">Backup All Games</div><div class="ss">JSON file download karo</div></div>
+      <button onclick="backupAll()" style="background:rgba(91,138,247,.12);color:var(--ac);border:1px solid var(--ac);padding:8px 12px;border-radius:var(--rs);cursor:pointer;font-weight:700;font-size:12px">Backup</button>
+    </div>
+    <div class="si">
+      <div><div class="sl">Restore Data</div><div class="ss">JSON se restore karo</div></div>
+      <label style="background:rgba(167,139,250,.12);color:#a78bfa;border:1px solid #a78bfa;padding:8px 12px;border-radius:var(--rs);cursor:pointer;font-weight:700;font-size:12px;display:inline-block">Restore<input type="file" accept=".json" onchange="restoreAll(event)" style="display:none"></label>
+    </div>
+    <div class="si">
+      <div><div class="sl">Export All CSV</div><div class="ss">Saare games ek CSV mein</div></div>
+      <button onclick="expAll()" style="background:rgba(61,214,140,.12);color:#3dd68c;border:1px solid #3dd68c;padding:8px 12px;border-radius:var(--rs);cursor:pointer;font-weight:700;font-size:12px">Export</button>
+    </div>
+    <div class="si">
+      <div><div class="sl">Reset Current Game</div><div class="ss">{{GAME}} data reset</div></div>
+      <button onclick="resetGame()" style="background:rgba(247,91,91,.12);color:#f75b5b;border:1px solid #f75b5b;padding:8px 12px;border-radius:var(--rs);cursor:pointer;font-weight:700;font-size:12px">Reset</button>
+    </div>
+  </div>
+  <div class="card">
+    <div class="ct">App Info</div>
+    <div class="si"><div><div class="sl">Total Records</div><div class="ss">All 19 games</div></div><div style="font-size:16px;font-weight:800;color:var(--ac)" id="s-tot">0</div></div>
+    <div class="si"><div><div class="sl">Active Games</div><div class="ss">Games with data</div></div><div style="font-size:16px;font-weight:800;color:#3dd68c" id="s-act">0</div></div>
+    <div class="si"><div><div class="sl">Version</div></div><div style="font-size:12px;color:var(--muted)">Pro v3.0</div></div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+// ============ GAME DEFINITIONS ============
+const GN = {
+  KALYAN:'Kalyan',KALYAN_MORNING:'Kalyan Morning',KALYAN_NIGHT:'Kalyan Night',
+  SRIDEVI_DAY:'Sridevi Day',SRIDEVI_NIGHT:'Sridevi Night',
+  MILAN_MORNING:'Milan Morning',MILAN_DAY:'Milan Day',MILAN_NIGHT:'Milan Night',
+  MADHUR_MORNING:'Madhur Morning',MADHUR_DAY:'Madhur Day',MADHUR_NIGHT:'Madhur Night',
+  TIME_BAZAR:'Time Bazar',
+  KB_BAZAR_MORNING:'KB Bazar Morning',KB_BAZAR_DAY:'KB Bazar Day',KB_BAZAR_NIGHT:'KB Bazar Night',
+  RAJDHANI_DAY:'Rajdhani Day',RAJDHANI_NIGHT:'Rajdhani Night',
+  SUPREME_DAY:'Supreme Day',SUPREME_NIGHT:'Supreme Night'
+};
+const GIDS = Object.keys(GN);
+const GCOL = {
+  KALYAN:'#5b8af7',KALYAN_MORNING:'#f0b429',KALYAN_NIGHT:'#a78bfa',
+  SRIDEVI_DAY:'#f472b6',SRIDEVI_NIGHT:'#2dd4bf',
+  MILAN_MORNING:'#3dd68c',MILAN_DAY:'#5b8af7',MILAN_NIGHT:'#fb923c',
+  MADHUR_MORNING:'#f472b6',MADHUR_DAY:'#2dd4bf',MADHUR_NIGHT:'#f0b429',
+  TIME_BAZAR:'#a78bfa',
+  KB_BAZAR_MORNING:'#3dd68c',KB_BAZAR_DAY:'#5b8af7',KB_BAZAR_NIGHT:'#fb923c',
+  RAJDHANI_DAY:'#f75b5b',RAJDHANI_NIGHT:'#f472b6',
+  SUPREME_DAY:'#2dd4bf',SUPREME_NIGHT:'#f0b429'
+};
+
+// ============ SEED DATA (KALYAN FULL + others short) ============
+const SEEDS = {
+KALYAN:`06/06/2024,113,53,599
+07/06/2024,269,72,390
+08/06/2024,277,62,390
+10/06/2024,688,29,379
+11/06/2024,223,75,690
+12/06/2024,144,90,389
+13/06/2024,116,82,228
+14/06/2024,359,70,677
+15/06/2024,556,65,249
+17/06/2024,669,15,249
+18/06/2024,480,25,140
+19/06/2024,359,75,780
+20/06/2024,237,26,600
+21/06/2024,247,31,146
+22/06/2024,234,98,170
+24/06/2024,789,45,168
+25/06/2024,660,26,268
+26/06/2024,349,64,149
+27/06/2024,130,47,115
+28/06/2024,880,66,457
+29/06/2024,560,15,690
+01/07/2024,467,77,458
+02/07/2024,123,66,358
+03/07/2024,138,24,167
+04/07/2024,268,64,347
+05/07/2024,489,13,445
+06/07/2024,468,84,356
+08/07/2024,679,26,367
+09/07/2024,450,91,335
+10/07/2024,129,29,900
+11/07/2024,260,88,116
+12/07/2024,578,04,400
+13/07/2024,177,55,168
+15/07/2024,450,95,690
+16/07/2024,148,37,467
+17/07/2024,668,02,480
+18/07/2024,900,99,289
+19/07/2024,458,70,226
+20/07/2024,459,82,679
+22/07/2024,690,55,267
+23/07/2024,560,13,120
+24/07/2024,689,34,266
+25/07/2024,346,31,560
+26/07/2024,256,39,234
+27/07/2024,125,89,135
+29/07/2024,900,94,167
+30/07/2024,679,23,229
+31/07/2024,129,27,115
+01/08/2024,489,13,247
+02/08/2024,369,81,146
+03/08/2024,699,49,270
+05/08/2024,488,07,179
+06/08/2024,150,67,188
+07/08/2024,130,46,448
+08/08/2024,220,49,270
+09/08/2024,330,64,239
+10/08/2024,459,87,160
+12/08/2024,489,16,457
+13/08/2024,568,99,360
+14/08/2024,130,40,479
+16/08/2024,599,33,247
+17/08/2024,125,82,138
+19/08/2024,389,04,266
+20/08/2024,446,45,249
+21/08/2024,688,24,356
+22/08/2024,669,16,367
+23/08/2024,189,89,144
+24/08/2024,138,28,378
+26/08/2024,129,28,116
+27/08/2024,237,25,140
+28/08/2024,669,16,268
+29/08/2024,560,12,147
+30/08/2024,246,20,280
+31/08/2024,259,65,159
+02/09/2024,130,46,169
+03/09/2024,125,85,348
+04/09/2024,289,90,578
+05/09/2024,890,72,589
+06/09/2024,340,72,679
+07/09/2024,126,93,238
+09/09/2024,268,69,450
+10/09/2024,124,76,600
+11/09/2024,489,12,345
+12/09/2024,680,45,348
+13/09/2024,247,30,389
+14/09/2024,128,14,356
+16/09/2024,370,08,260
+17/09/2024,369,85,267
+18/09/2024,369,87,160
+19/09/2024,356,40,235
+20/09/2024,245,13,148
+21/09/2024,380,14,699
+23/09/2024,113,54,400
+24/09/2024,459,82,200
+25/09/2024,247,34,248
+26/09/2024,179,70,235
+27/09/2024,348,57,359
+28/09/2024,578,03,256
+30/09/2024,134,85,230
+01/10/2024,330,64,699
+02/10/2024,770,47,250
+03/10/2024,170,87,340
+04/10/2024,116,85,159
+05/10/2024,289,97,250
+07/10/2024,447,58,350
+08/10/2024,578,06,268
+09/10/2024,780,51,344
+10/10/2024,588,13,490
+11/10/2024,269,74,158
+12/10/2024,157,39,289
+14/10/2024,126,91,245
+15/10/2024,788,35,168
+16/10/2024,350,82,138
+17/10/2024,159,53,139
+18/10/2024,230,56,349
+19/10/2024,127,07,124
+21/10/2024,178,62,480
+22/10/2024,137,10,136
+23/10/2024,680,49,478
+24/10/2024,456,51,470
+25/10/2024,470,19,379
+26/10/2024,456,56,367
+06/11/2024,369,80,136
+07/11/2024,348,52,147
+08/11/2024,170,84,590
+09/11/2024,350,87,179
+11/11/2024,140,51,489
+12/11/2024,577,91,128
+13/11/2024,257,41,137
+14/11/2024,456,57,377
+15/11/2024,588,19,478
+16/11/2024,379,95,258
+18/11/2024,460,05,168
+19/11/2024,667,90,479
+20/11/2024,557,74,770
+21/11/2024,136,06,259
+22/11/2024,119,19,234
+23/11/2024,268,63,689
+25/11/2024,379,90,280
+26/11/2024,346,34,400
+27/11/2024,260,82,200
+28/11/2024,370,09,144
+29/11/2024,589,28,260
+30/11/2024,137,19,577
+02/12/2024,467,72,480
+03/12/2024,337,34,347
+04/12/2024,138,21,380
+05/12/2024,580,32,156
+06/12/2024,156,21,489
+07/12/2024,158,42,129
+09/12/2024,168,58,170
+10/12/2024,224,84,347
+11/12/2024,488,00,299
+12/12/2024,114,67,359
+13/12/2024,677,06,277
+14/12/2024,667,98,378
+16/12/2024,479,03,157
+17/12/2024,468,82,589
+18/12/2024,679,29,667
+19/12/2024,379,90,226
+20/12/2024,560,14,455
+21/12/2024,114,66,367
+23/12/2024,578,02,589
+24/12/2024,699,40,235
+25/12/2024,199,92,345
+26/12/2024,116,85,780
+27/12/2024,569,00,136
+28/12/2024,800,88,260
+30/12/2024,580,39,144
+31/12/2024,379,94,257
+01/01/2025,229,33,599
+02/01/2025,447,58,125
+03/01/2025,344,11,470
+04/01/2025,178,63,337
+06/01/2025,388,91,100
+07/01/2025,178,69,135
+08/01/2025,358,60,127
+09/01/2025,449,71,128
+10/01/2025,350,85,267
+11/01/2025,390,20,370
+13/01/2025,180,95,357
+14/01/2025,138,28,279
+15/01/2025,236,11,588
+16/01/2025,679,29,270
+17/01/2025,390,28,350
+18/01/2025,470,18,189
+20/01/2025,257,47,458
+21/01/2025,800,83,148
+22/01/2025,149,45,357
+23/01/2025,260,80,145
+24/01/2025,256,33,689
+25/01/2025,489,18,369
+27/01/2025,289,96,349
+28/01/2025,589,25,267
+29/01/2025,250,78,369
+30/01/2025,690,59,478
+31/01/2025,580,30,550
+01/02/2025,270,94,167
+03/02/2025,136,08,189
+04/02/2025,267,55,357
+05/02/2025,280,04,239
+06/02/2025,678,14,149
+07/02/2025,159,55,690
+08/02/2025,348,51,678
+10/02/2025,359,71,470
+11/02/2025,336,27,179
+12/02/2025,480,21,155
+13/02/2025,679,23,670
+14/02/2025,180,95,348
+15/02/2025,138,29,225
+17/02/2025,255,21,137
+18/02/2025,470,19,900
+19/02/2025,247,33,788
+20/02/2025,399,17,179
+21/02/2025,269,76,556
+22/02/2025,224,84,455
+24/02/2025,447,57,269
+25/02/2025,367,65,267
+26/02/2025,136,06,457
+27/02/2025,180,97,179
+28/02/2025,270,93,337
+01/03/2025,690,53,120
+03/03/2025,778,21,588
+04/03/2025,460,01,669
+05/03/2025,558,80,677
+06/03/2025,300,39,289
+07/03/2025,129,20,460
+08/03/2025,370,01,128
+10/03/2025,789,49,568
+11/03/2025,125,89,469
+12/03/2025,369,83,157
+13/03/2025,156,29,180
+15/03/2025,130,44,789
+17/03/2025,558,82,778
+18/03/2025,244,01,290
+19/03/2025,579,14,347
+20/03/2025,120,33,788
+21/03/2025,160,70,677
+22/03/2025,588,13,670
+24/03/2025,111,33,139
+25/03/2025,677,00,334
+26/03/2025,470,10,550
+27/03/2025,890,79,289
+28/03/2025,257,41,155
+29/03/2025,234,96,556
+31/03/2025,128,12,336
+01/04/2025,460,04,356
+02/04/2025,880,66,367
+03/04/2025,178,61,560
+04/04/2025,169,62,138
+05/04/2025,235,02,679
+07/04/2025,180,91,588
+08/04/2025,247,31,119
+09/04/2025,789,44,239
+10/04/2025,277,63,670
+11/04/2025,345,23,238
+12/04/2025,469,93,689
+14/04/2025,257,40,389
+15/04/2025,270,96,268
+16/04/2025,169,62,570
+17/04/2025,558,80,226
+18/04/2025,489,15,168
+19/04/2025,359,76,240
+21/04/2025,247,35,500
+22/04/2025,469,91,335
+23/04/2025,149,44,248
+24/04/2025,299,08,459
+25/04/2025,490,34,789
+26/04/2025,257,46,268
+28/04/2025,789,43,256
+29/04/2025,128,14,167
+30/04/2025,345,25,168
+01/05/2025,150,69,180
+02/05/2025,136,05,159
+03/05/2025,127,00,569
+05/05/2025,135,98,116
+06/05/2025,479,04,112
+07/05/2025,136,03,148
+08/05/2025,123,62,138
+09/05/2025,158,47,269
+10/05/2025,257,45,258
+12/05/2025,233,82,336
+13/05/2025,569,00,389
+14/05/2025,278,74,590
+15/05/2025,288,83,157
+16/05/2025,389,08,468
+17/05/2025,690,57,160
+19/05/2025,900,99,360
+20/05/2025,190,00,145
+21/05/2025,167,47,340
+22/05/2025,237,21,137
+23/05/2025,179,72,129
+24/05/2025,390,26,367
+26/05/2025,148,30,145
+27/05/2025,259,61,128
+28/05/2025,470,16,457
+29/05/2025,125,81,678
+30/05/2025,790,65,690
+31/05/2025,247,38,170
+02/06/2025,229,34,455
+03/06/2025,899,62,138
+04/06/2025,778,21,470
+05/06/2025,244,02,336
+06/06/2025,255,23,247
+07/06/2025,110,24,248
+09/06/2025,579,11,335
+10/06/2025,990,89,568
+11/06/2025,356,40,578
+12/06/2025,160,76,790
+13/06/2025,158,44,167
+14/06/2025,133,75,159
+16/06/2025,578,07,115
+17/06/2025,220,42,138
+18/06/2025,446,48,125
+19/06/2025,148,33,599
+20/06/2025,278,72,390
+21/06/2025,689,34,770
+23/06/2025,159,53,247
+24/06/2025,125,81,236
+25/06/2025,279,81,137
+26/06/2025,248,48,800
+27/06/2025,256,31,344
+28/06/2025,349,64,590
+30/06/2025,145,06,349
+01/07/2025,470,14,699
+02/07/2025,334,02,660
+03/07/2025,470,15,780
+04/07/2025,369,89,126
+05/07/2025,223,75,267
+07/07/2025,189,81,380
+08/07/2025,233,88,224
+09/07/2025,378,88,189
+10/07/2025,699,41,335
+11/07/2025,248,48,125
+12/07/2025,458,77,467
+14/07/2025,789,44,248
+15/07/2025,116,85,140
+16/07/2025,138,28,189
+17/07/2025,359,72,138
+18/07/2025,689,36,268
+19/07/2025,678,13,346
+21/07/2025,790,68,350
+22/07/2025,678,10,299
+23/07/2025,389,05,456
+24/07/2025,377,71,669
+25/07/2025,378,82,345
+26/07/2025,150,61,678
+28/07/2025,334,05,168
+29/07/2025,578,08,350
+30/07/2025,359,76,150
+31/07/2025,367,67,566
+01/08/2025,190,03,238
+02/08/2025,456,58,459
+04/08/2025,235,06,899
+05/08/2025,579,11,290
+06/08/2025,578,09,225
+07/08/2025,235,09,478
+08/08/2025,114,68,459
+09/08/2025,123,69,379
+11/08/2025,260,83,157
+12/08/2025,568,91,579
+13/08/2025,278,75,780
+14/08/2025,149,42,147
+16/08/2025,250,72,390
+18/08/2025,348,54,455
+19/08/2025,467,75,348
+20/08/2025,399,14,770
+21/08/2025,355,39,478
+22/08/2025,899,68,279
+23/08/2025,347,43,148
+25/08/2025,259,68,125
+26/08/2025,340,73,779
+27/08/2025,336,20,569
+28/08/2025,488,05,339
+29/08/2025,257,40,677
+30/08/2025,148,38,468
+01/09/2025,778,25,780
+02/09/2025,340,75,447
+03/09/2025,268,61,489
+04/09/2025,590,43,445
+05/09/2025,128,17,458
+06/09/2025,200,24,112
+08/09/2025,128,14,770
+09/09/2025,114,63,788
+10/09/2025,224,87,115
+11/09/2025,370,01,137
+12/09/2025,267,51,137
+13/09/2025,690,58,279
+15/09/2025,667,99,478
+16/09/2025,590,42,129
+17/09/2025,699,44,167
+18/09/2025,579,16,367
+19/09/2025,780,56,268
+20/09/2025,670,38,459
+22/09/2025,447,52,480
+23/09/2025,690,58,260
+24/09/2025,590,49,478
+25/09/2025,790,69,135
+26/09/2025,458,79,126
+27/09/2025,557,71,128
+29/09/2025,223,71,399
+30/09/2025,160,79,135
+01/10/2025,133,73,346
+02/10/2025,134,87,458
+03/10/2025,134,80,145
+04/10/2025,560,19,450
+06/10/2025,119,12,589
+07/10/2025,379,96,448
+08/10/2025,359,79,450
+09/10/2025,238,36,150
+10/10/2025,260,84,590
+11/10/2025,225,97,124
+13/10/2025,770,40,460
+14/10/2025,125,85,140
+15/10/2025,568,95,258
+16/10/2025,139,31,128
+17/10/2025,146,15,348
+27/10/2025,159,59,117
+28/10/2025,158,44,220
+29/10/2025,159,59,568
+30/10/2025,789,42,589
+31/10/2025,379,90,127
+01/11/2025,569,08,125
+03/11/2025,780,55,168
+04/11/2025,578,02,138
+05/11/2025,147,23,120
+06/11/2025,578,00,460
+07/11/2025,578,05,258
+08/11/2025,129,27,368
+10/11/2025,135,91,128
+11/11/2025,335,16,790
+12/11/2025,189,84,266
+13/11/2025,129,20,370
+14/11/2025,125,84,590
+15/11/2025,149,47,133
+17/11/2025,780,52,570
+18/11/2025,469,96,268
+19/11/2025,348,53,256
+20/11/2025,560,11,290
+21/11/2025,160,70,479
+22/11/2025,279,82,255
+24/11/2025,126,91,560
+25/11/2025,126,97,890
+26/11/2025,268,67,278
+27/11/2025,458,79,180
+28/11/2025,136,09,234
+29/11/2025,279,87,449
+01/12/2025,557,78,990
+02/12/2025,456,52,246
+03/12/2025,669,12,255
+04/12/2025,449,72,147
+05/12/2025,349,64,239
+06/12/2025,560,17,250
+08/12/2025,678,16,259
+09/12/2025,680,43,490
+10/12/2025,890,78,350
+11/12/2025,270,91,137
+12/12/2025,480,27,368
+13/12/2025,490,30,235
+15/12/2025,349,64,248
+16/12/2025,599,30,569
+17/12/2025,478,97,188
+18/12/2025,456,55,339
+19/12/2025,180,97,223
+20/12/2025,139,39,478
+22/12/2025,157,33,238
+23/12/2025,445,38,558
+24/12/2025,366,53,229
+25/12/2025,238,32,200
+26/12/2025,260,84,789
+27/12/2025,477,82,390
+29/12/2025,899,60,136
+30/12/2025,168,57,359
+31/12/2025,445,36,240
+01/01/2026,180,94,167
+02/01/2026,267,52,200
+03/01/2026,880,68,378
+05/01/2026,235,04,248
+06/01/2026,338,46,600
+07/01/2026,367,65,168
+08/01/2026,488,04,158
+09/01/2026,145,04,770
+10/01/2026,278,74,680
+12/01/2026,278,77,250
+13/01/2026,249,51,678
+14/01/2026,578,04,149
+15/01/2026,346,34,167
+16/01/2026,168,55,366
+17/01/2026,130,42,390
+19/01/2026,235,02,156
+20/01/2026,670,39,135
+21/01/2026,334,06,150
+22/01/2026,790,67,124
+23/01/2026,457,69,126
+24/01/2026,348,54,149
+27/01/2026,250,76,600
+28/01/2026,348,59,234
+29/01/2026,788,35,159
+30/01/2026,146,12,778
+31/01/2026,700,70,235
+02/02/2026,379,91,489
+03/02/2026,188,78,378
+04/02/2026,279,82,138
+05/02/2026,147,20,145
+06/02/2026,456,54,789
+07/02/2026,259,65,267
+09/02/2026,458,77,250
+10/02/2026,479,00,244
+11/02/2026,788,36,457
+12/02/2026,147,25,113
+13/02/2026,260,88,378
+14/02/2026,156,27,269
+16/02/2026,270,94,789
+17/02/2026,670,31,380
+18/02/2026,230,55,690
+19/02/2026,130,49,199
+20/02/2026,678,18,350
+21/02/2026,146,15,357
+23/02/2026,577,97,700
+24/02/2026,699,49,469
+25/02/2026,250,71,489
+26/02/2026,146,17,223
+27/02/2026,588,12,589
+28/02/2026,148,33,689
+02/03/2026,137,13,148
+03/03/2026,289,94,680
+05/03/2026,234,90,578
+06/03/2026,140,56,123
+07/03/2026,150,63,670
+09/03/2026,890,70,127
+10/03/2026,129,21,100
+11/03/2026,445,30,370
+12/03/2026,260,88,134
+13/03/2026,335,15,230
+14/03/2026,357,54,248
+16/03/2026,249,58,224`,
+SRIDEVI_NIGHT:`06/06/2024,580,35,267
+07/06/2024,358,62,660
+08/06/2024,578,00,479
+16/03/2026,122,58,134`,
+KALYAN_MORNING:`06/06/2024,156,24,248
+07/06/2024,259,66,457
+16/03/2026,130,40,479`,
+KALYAN_NIGHT:`05/06/2024,788,34,338
+06/06/2024,349,60,569
+16/03/2026,469,99,568`,
+SRIDEVI_DAY:`06/06/2024,678,15,258
+07/06/2024,690,51,290
+16/03/2026,480,23,490`,
+MILAN_MORNING:`06/06/2024,300,31,146
+07/06/2024,457,69,360
+16/03/2026,123,60,244`,
+MILAN_DAY:`06/06/2024,345,25,267
+07/06/2024,588,12,480
+16/03/2026,135,92,110`,
+MILAN_NIGHT:`06/06/2024,148,30,280
+07/06/2024,137,15,889
+16/03/2026,359,77,890`,
+MADHUR_MORNING:`06/06/2024,139,39,900
+07/06/2024,140,59,234
+16/03/2026,147,26,790`,
+MADHUR_DAY:`06/06/2024,490,32,480
+07/06/2024,360,91,236
+16/03/2026,459,80,479`,
+MADHUR_NIGHT:`06/06/2024,190,00,145
+07/06/2024,589,25,267
+16/03/2026,448,60,370`,
+TIME_BAZAR:`06/06/2024,367,61,579
+07/06/2024,359,77,269
+16/03/2026,289,96,150`,
+KB_BAZAR_MORNING:`21/08/2025,147,25,690
+22/08/2025,168,58,800
+16/03/2026,400,47,133`,
+KB_BAZAR_DAY:`21/08/2025,256,30,569
+22/08/2025,259,65,780
+16/03/2026,334,07,160`,
+KB_BAZAR_NIGHT:`21/08/2025,469,96,259
+22/08/2025,158,48,350
+16/03/2026,367,62,237`,
+RAJDHANI_DAY:`06/06/2024,246,28,260
+07/06/2024,279,87,223
+16/03/2026,356,42,570`,
+RAJDHANI_NIGHT:`05/06/2024,780,53,670
+06/06/2024,455,41,137
+16/03/2026,456,56,899`,
+SUPREME_DAY:`06/06/2024,160,77,179
+07/06/2024,378,89,469
+16/03/2026,260,85,780`,
+SUPREME_NIGHT:`05/06/2024,379,95,690
+06/06/2024,120,33,346
+16/03/2026,223,72,679`
+};
+
+// ============ APP STATE ============
+let CG = 'KALYAN';
+let DATA = {};
+let cJ=null,cO=null,cC=null,cM=null;
+
+// ============ DATA FUNCTIONS ============
+function loadAll(){
+  GIDS.forEach(id=>{
+    try{const s=localStorage.getItem('mk_'+id);if(s){DATA[id]=JSON.parse(s);}else{DATA[id]=parseSeed(id);}}
+    catch(e){DATA[id]=parseSeed(id);}
+  });
+}
+function parseSeed(id){
+  const raw=SEEDS[id]||'';
+  return raw.trim().split('\n').filter(l=>l.trim()&&!l.includes('*')).map(l=>{
+    const p=l.split(',');
+    if(p.length<4)return null;
+    return{date:p[0].trim(),open:p[1].trim(),jodi:p[2].trim().padStart(2,'0'),close:p[3].trim()};
+  }).filter(Boolean);
+}
+function save(id){try{localStorage.setItem('mk_'+id,JSON.stringify(DATA[id]));}catch(e){}}
+function D(){return DATA[CG]||[];}
+function freq(arr){const f={};arr.forEach(v=>f[v]=(f[v]||0)+1);return Object.entries(f).sort((a,b)=>b[1]-a[1]);}
+function dsu(s){if(!s)return 0;return s.split('').reduce((a,b)=>a+(parseInt(b)||0),0)%10;}
+function hex(){return GCOL[CG]||'#5b8af7';}
+function bg(){const h=hex();return h+'20';}
+function uh(){
+  const n=(DATA[CG]||[]).length;
+  document.getElementById('hc').textContent=n+' rec';
+  document.getElementById('gcnt').textContent=n+' records';
+}
+
+// ============ GAME SELECTOR ============
+function buildGrid(){
+  const g=document.getElementById('ggrid');
+  g.innerHTML=GIDS.map(id=>`<button class="gbtn${id===CG?' on':''}" onclick="selGame('${id}')"
+    style="${id===CG?`color:${GCOL[id]};background:${GCOL[id]}20;border-color:${GCOL[id]}`:''}">${GN[id]}</button>`).join('');
+}
+function selGame(id){
+  CG=id;
+  document.documentElement.style.setProperty('--ac',GCOL[id]);
+  document.documentElement.style.setProperty('--acbg',GCOL[id]+'20');
+  document.getElementById('gname').textContent=GN[id];
+  if(cJ){cJ.destroy();cJ=null;}if(cO){cO.destroy();cO=null;}if(cC){cC.destroy();cC=null;}if(cM){cM.destroy();cM=null;}
+  buildGrid();uh();
+  const ap=document.querySelector('.pg.on');
+  if(ap)sp(ap.id.replace('pg-',''));
+}
+
+// ============ NAV ============
+function sp(n){
+  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('on'));
+  const p=document.getElementById('pg-'+n);if(p)p.classList.add('on');
+  const map={dash:0,pred:1,data:2,charts:3,hist:4,analysis:5,trends:6,settings:7};
+  const nbs=document.querySelectorAll('.nb');
+  if(map[n]!==undefined&&nbs[map[n]])nbs[map[n]].classList.add('on');
+  if(n==='dash')rDash();
+  if(n==='pred')rPL();
+  if(n==='data')rDT();
+  if(n==='charts')rCharts();
+  if(n==='hist')rHist();
+  if(n==='analysis')rAnalysis('hm');
+  if(n==='trends')rTrends();
+  if(n==='settings')rSettings();
+}
+
+// ============ DASHBOARD ============
+function rDash(){
+  uh();
+  const dd=D();
+  if(!dd.length){document.getElementById('d-tot').textContent='0';document.getElementById('d-lr').innerHTML='';document.getElementById('d-l7').innerHTML='<div style="color:var(--muted);font-size:12px;padding:10px">Data nahi hai. Data tab se add karo.</div>';document.getElementById('d-hj').innerHTML='';return;}
+  const jf=freq(dd.map(x=>x.jodi)),od=freq(dd.flatMap(x=>x.open.split(''))),cd=freq(dd.flatMap(x=>x.close.split('')));
+  document.getElementById('d-tot').textContent=dd.length;
+  document.getElementById('d-tj').textContent=jf[0]?jf[0][0]:'--';
+  document.getElementById('d-to').textContent=od[0]?od[0][0]:'--';
+  document.getElementById('d-tc').textContent=cd[0]?cd[0][0]:'--';
+  const last=dd[dd.length-1];
+  document.getElementById('d-lr').innerHTML=`<div class="lr">
+    <div class="lr-box"><div class="lr-lb">Open</div><div class="lr-n" style="color:${hex()}">${last.open}</div></div>
+    <div style="color:var(--muted);font-size:16px">→</div>
+    <div class="lr-box"><div class="lr-lb">Jodi</div><div class="lr-n" style="color:${hex()}">${last.jodi}</div></div>
+    <div style="color:var(--muted);font-size:16px">→</div>
+    <div class="lr-box"><div class="lr-lb">Close</div><div class="lr-n" style="color:${hex()}">${last.close}</div></div>
+    <div style="position:absolute;font-size:10px;color:var(--muted);bottom:6px;right:10px">${last.date}</div>
+  </div>`;
+  document.getElementById('d-l7').innerHTML='<table><thead><tr><th>Date</th><th>Open</th><th>Jodi</th><th>Close</th></tr></thead><tbody>'+
+    dd.slice(-7).reverse().map(r=>`<tr><td>${r.date}</td><td>${r.open}</td><td><span class="badge" style="background:${bg()};color:${hex()}">${r.jodi}</span></td><td>${r.close}</td></tr>`).join('')+'</tbody></table>';
+  document.getElementById('d-hj').innerHTML=jf.slice(0,15).map(([j,c])=>`<span class="badge" style="background:${bg()};color:${hex()}">${j} <span style="opacity:.6;font-size:10px">${c}x</span></span>`).join('');
+  document.getElementById('d-od').innerHTML=od.map(([x,c])=>`<span class="badge bdg-a">${x}:${c}</span>`).join('');
+  document.getElementById('d-cd').innerHTML=cd.map(([x,c])=>`<span class="badge bdg-g">${x}:${c}</span>`).join('');
+}
+
+// ============ AI PREDICTION ============
+function wp(fa,ex){
+  const p=[];fa.forEach(([v,c])=>{if(!ex||!ex.has(v))for(let i=0;i<c;i++)p.push(v);});
+  if(!p.length)fa.forEach(([v,c])=>{for(let i=0;i<c;i++)p.push(v);});
+  return p[Math.floor(Math.random()*p.length)]||'0';
+}
+function runAI(){
+  const dd=D();const n=dd.length;
+  if(n<5){alert('Kam se kam 5 records chahiye!');return;}
+  const btn=document.getElementById('pred-btn');
+  btn.textContent='Analyzing...';btn.disabled=true;
+  setTimeout(()=>{
+    const l10=dd.slice(-10);
+    const jfA=freq(dd.map(x=>x.jodi)),odA=freq(dd.flatMap(x=>x.open.split(''))),cdA=freq(dd.flatMap(x=>x.close.split('')));
+    const odR=freq(l10.flatMap(x=>x.open.split(''))),cdR=freq(l10.flatMap(x=>x.close.split('')));
+    const rJ=new Set(l10.map(x=>x.jodi)),rO=new Set(l10.flatMap(x=>x.open.split(''))),rC=new Set(l10.flatMap(x=>x.close.split('')));
+    function m3(fo,fc,eo,ec){const a=wp(fo,eo),b=wp(fo,new Set([a])),c=wp(fo,new Set([a,b]));const x=wp(fc,ec),y=wp(fc,new Set([x])),z=wp(fc,new Set([x,y]));return{open:a+b+c,close:x+y+z};}
+    const r1=m3(odA,cdA,rO,rC),r2=m3(odR,cdR,null,null);
+    const dst=(dsu(dd[n-1].open)+1)%10,dct=(dsu(dd[n-1].close)+1)%10;
+    const mof=freq(dd.filter(x=>dsu(x.open)===dst).map(x=>x.open));
+    const mcf=freq(dd.filter(x=>dsu(x.close)===dct).map(x=>x.close));
+    const r4o=mof[0]?mof[0][0]:r1.open,r4c=mcf[0]?mcf[0][0]:r1.close;
+    const ls={};dd.forEach((x,i)=>{ls[x.jodi]=i;});
+    const gJ=Object.entries(ls).map(([j,i])=>([j,n-1-i])).sort((a,b)=>b[1]-a[1]).filter(([j])=>!rJ.has(j)).slice(0,6).map(x=>x[0]);
+    const cyJ=freq(dd.filter((_,i)=>(n-1-i)%7===0).map(x=>x.jodi)).map(x=>x[0]).filter(j=>!rJ.has(j));
+    const lj=dd[n-1].jodi,seJ=[];for(let i=1;i<dd.length;i++)if(dd[i-1].jodi===lj&&!rJ.has(dd[i].jodi))seJ.push(dd[i].jodi);
+    const sc={};[...gJ,...cyJ,...seJ].forEach(j=>{sc[j]=(sc[j]||0)+1;});
+    let fj=Object.entries(sc).sort((a,b)=>b[1]-a[1]).map(x=>x[0]).slice(0,3);
+    if(fj.length<3){const fb=jfA.map(x=>x[0]).filter(j=>!rJ.has(j)&&!fj.includes(j));while(fj.length<3&&fb.length)fj.push(fb.shift());}
+    const fo=freq([r1.open,r2.open,r4o])[0][0];
+    const fc=freq([r1.close,r2.close,r4c])[0][0];
+    document.getElementById('p-o').textContent=fo;
+    document.getElementById('p-c').textContent=fc;
+    document.getElementById('p-j').innerHTML=fj.map(j=>`<span class="pjodi">${j}</span>`).join('');
+    document.getElementById('p-al').innerHTML=[{l:'Global frequency',c:72},{l:'Recent trend (last 10)',c:68},{l:'Gap analysis',c:65},{l:'Digit sum pattern',c:60},{l:'7-day cycle',c:55},{l:'Sequence follow-up',c:50}].map(a=>`<div class="algrow"><span>${a.l}</span><div style="display:flex;align-items:center;gap:8px"><div class="cbg"><div class="cb" style="width:${a.c}%;background:${hex()}"></div></div><span style="font-size:11px;color:var(--muted)">${a.c}%</span></div></div>`).join('');
+    const lk='mk_pred_'+CG;let log=[];try{const s=localStorage.getItem(lk);if(s)log=JSON.parse(s);}catch(e){}
+    const now=new Date(),ds=now.getDate().toString().padStart(2,'0')+'/'+(now.getMonth()+1).toString().padStart(2,'0')+'/'+now.getFullYear();
+    log.unshift({date:ds,open:fo,close:fc,jodis:fj.join(', ')});if(log.length>10)log.pop();
+    try{localStorage.setItem(lk,JSON.stringify(log));}catch(e){}
+    rPL();
+    const st=document.getElementById('p-st');st.textContent='6 algorithms chalaye — prediction ready!';st.className='sm on sok';setTimeout(()=>st.classList.remove('on'),3000);
+    btn.textContent='Generate AI Prediction';btn.disabled=false;
+  },300);
+}
+function rPL(){
+  let log=[];try{const s=localStorage.getItem('mk_pred_'+CG);if(s)log=JSON.parse(s);}catch(e){}
+  const el=document.getElementById('p-log');
+  if(!log.length){el.innerHTML='<div style="color:var(--muted);font-size:12px;text-align:center;padding:16px">Koi prediction nahi. Generate button dabao!</div>';return;}
+  el.innerHTML=log.map(l=>`<div class="plog-item"><div style="font-size:10px;color:var(--muted);margin-bottom:4px">${l.date}</div><div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center"><div><div style="font-size:10px;color:var(--muted)">Open</div><div style="font-size:15px;font-weight:800;color:${hex()}">${l.open}</div></div><div style="color:var(--muted)">→</div><div><div style="font-size:10px;color:var(--muted)">Close</div><div style="font-size:15px;font-weight:800;color:${hex()}">${l.close}</div></div><div><div style="font-size:10px;color:var(--muted)">Jodis</div><div style="font-size:13px;font-weight:700;color:${hex()}">${l.jodis}</div></div></div></div>`).join('');
+}
+
+// ============ DATA MANAGER ============
+function addEntry(){
+  const dt=document.getElementById('fd').value.trim(),o=document.getElementById('fo').value.trim(),j=document.getElementById('fj').value.trim().padStart(2,'0'),c=document.getElementById('fc').value.trim();
+  const st=document.getElementById('as');
+  if(!dt||o.length!==3||c.length!==3||j.replace(/\D/g,'').length!==2){st.textContent='Sahi se bharo!';st.className='sm on serr';setTimeout(()=>st.classList.remove('on'),3000);return;}
+  DATA[CG].push({date:dt,open:o,jodi:j,close:c});save(CG);uh();
+  ['fd','fo','fj','fc'].forEach(id=>document.getElementById(id).value='');
+  st.textContent='Entry add! Total: '+DATA[CG].length;st.className='sm on sok';setTimeout(()=>st.classList.remove('on'),3000);rDT();
+}
+function bulkImp(){
+  const raw=document.getElementById('bi').value.trim(),st=document.getElementById('bs');
+  if(!raw){st.textContent='Data paste karo';st.className='sm on serr';return;}
+  let a=0,e=0;
+  raw.split('\n').map(l=>l.trim()).filter(Boolean).forEach(line=>{
+    const p=line.split(/[\s,\t]+/);
+    if(p.length>=4&&p[1].length===3&&p[3].length===3){DATA[CG].push({date:p[0],open:p[1],jodi:p[2].padStart(2,'0'),close:p[3]});a++;}else e++;
+  });
+  save(CG);uh();document.getElementById('bi').value='';
+  st.textContent=a+' add hue'+(e?' ('+e+' skip)':'');st.className='sm on sok';setTimeout(()=>st.classList.remove('on'),4000);rDT();
+}
+function delE(i){if(confirm('Delete?')){DATA[CG].splice(i,1);save(CG);uh();rDT();}}
+function rDT(){
+  const dd=DATA[CG]||[],s=Math.max(0,dd.length-25);
+  document.getElementById('dtbl').innerHTML=dd.slice(s).map((r,i)=>`<tr><td>${r.date}</td><td>${r.open}</td><td><span class="badge" style="background:${bg()};color:${hex()}">${r.jodi}</span></td><td>${r.close}</td><td><button class="del-btn" onclick="delE(${s+i})">Del</button></td></tr>`).reverse().join('');
+}
+function expCSV(){
+  const dd=DATA[CG]||[];
+  const csv='Date,Open,Jodi,Close\n'+dd.map(r=>`${r.date},${r.open},${r.jodi},${r.close}`).join('\n');
+  const a=document.createElement('a');a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);a.download=GN[CG].replace(/ /g,'_')+'.csv';a.click();
+}
+
+// ============ HISTORY ============
+function rHist(){
+  const q=(document.getElementById('hs')||{}).value||'',sort=(document.getElementById('hso')||{}).value||'desc';
+  let rows=[...D()];if(q)rows=rows.filter(r=>r.date.includes(q)||r.open.includes(q)||r.jodi.includes(q)||r.close.includes(q));
+  if(sort==='desc')rows=rows.reverse();
+  document.getElementById('htbl').innerHTML=rows.map(r=>`<tr><td>${r.date}</td><td>${r.open}</td><td><span class="badge" style="background:${bg()};color:${hex()}">${r.jodi}</span></td><td>${r.close}</td><td>${dsu(r.open)}</td><td>${dsu(r.close)}</td></tr>`).join('');
+  document.getElementById('hcnt').textContent=rows.length+' records';
+}
+
+// ============ CHARTS ============
+function rCharts(){
+  const dd=D();
+  const jf=freq(dd.map(x=>x.jodi)).slice(0,20),od=freq(dd.flatMap(x=>x.open.split(''))),cd=freq(dd.flatMap(x=>x.close.split('')));
+  if(cJ){cJ.destroy();cJ=null;}if(cO){cO.destroy();cO=null;}if(cC){cC.destroy();cC=null;}
+  const h=hex();
+  const bo={responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#6060a0',autoSkip:false,font:{size:10}},grid:{color:'rgba(255,255,255,0.04)'}},y:{ticks:{color:'#6060a0'},grid:{color:'rgba(255,255,255,0.04)'},beginAtZero:true}}};
+  if(jf.length){cJ=new Chart(document.getElementById('cj'),{type:'bar',data:{labels:jf.map(x=>x[0]),datasets:[{data:jf.map(x=>x[1]),backgroundColor:h+'99',borderColor:h,borderWidth:1,borderRadius:4}]},options:{...bo}});}
+  if(od.length){cO=new Chart(document.getElementById('co'),{type:'bar',data:{labels:od.map(x=>x[0]),datasets:[{data:od.map(x=>x[1]),backgroundColor:'#f0b42999',borderColor:'#f0b429',borderWidth:1,borderRadius:4}]},options:{...bo}});}
+  if(cd.length){cC=new Chart(document.getElementById('cc'),{type:'bar',data:{labels:cd.map(x=>x[0]),datasets:[{data:cd.map(x=>x[1]),backgroundColor:'#3dd68c99',borderColor:'#3dd68c',borderWidth:1,borderRadius:4}]},options:{...bo}});}
+}
+
+// ============ ANALYSIS ============
+function setAT(tab,el){
+  document.querySelectorAll('#pg-analysis .badge').forEach(b=>{b.classList.remove('bdg-ac');b.style.background='rgba(255,255,255,.06)';b.style.color='var(--muted)';});
+  el.classList.add('bdg-ac');el.style.background=bg();el.style.color=hex();
+  ['hm','seq','dig'].forEach(t=>document.getElementById('at-'+t).style.display=t===tab?'block':'none');
+  if(tab==='hm')rHeatmap();
+  if(tab==='seq')rSeq();
+  if(tab==='dig')rDig();
+}
+function rAnalysis(t){
+  setAT(t||'hm',document.querySelector('#pg-analysis .badge'));
+}
+function rHeatmap(){
+  const dd=D();if(!dd.length)return;
+  const jf={};dd.forEach(x=>{jf[x.jodi]=(jf[x.jodi]||0)+1;});
+  const maxF=Math.max(...Object.values(jf),1);const h=hex();
+  let html='';
+  for(let i=0;i<=99;i++){
+    const j=i.toString().padStart(2,'0'),cnt=jf[j]||0,op=cnt?(0.15+(cnt/maxF)*0.85):0.05;
+    const bg2=cnt?h+Math.round(op*255).toString(16).padStart(2,'0'):'rgba(255,255,255,0.04)';
+    html+=`<div style="aspect-ratio:1;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;background:${bg2};color:${cnt?h:'rgba(255,255,255,.2)'}" title="${j}:${cnt}x">${j}</div>`;
+  }
+  document.getElementById('hmgrid').innerHTML=html;
+}
+function rSeq(){
+  const dd=D();if(dd.length<10){document.getElementById('seq-res').innerHTML='<div style="color:var(--muted);font-size:12px;padding:10px">10+ records chahiye.</div>';return;}
+  const trans={};for(let i=1;i<dd.length;i++){const p=dd[i-1].jodi,n=dd[i].jodi;if(!trans[p])trans[p]={};trans[p][n]=(trans[p][n]||0)+1;}
+  const top=[];Object.entries(trans).forEach(([f,tm])=>Object.entries(tm).forEach(([t,c])=>top.push({f,t,c})));top.sort((a,b)=>b.c-a.c);
+  const lj=dd[dd.length-1].jodi,nm=trans[lj]||{};
+  const ns=Object.entries(nm).sort((a,b)=>b[1]-a[1]).slice(0,5);
+  const h=hex();
+  document.getElementById('seq-res').innerHTML=`<div style="background:${bg()};border-radius:var(--rs);padding:10px;margin-bottom:10px;border:1px solid ${h}"><div style="font-size:10px;color:${h};font-weight:700;text-transform:uppercase;margin-bottom:6px">Last jodi ${lj} ke baad</div>${ns.length?ns.map(([j,c])=>`<div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.05)"><span class="badge" style="background:${bg()};color:${h}">${j}</span><span style="color:var(--muted);font-size:12px">${c}x</span></div>`).join(''):'<div style="color:var(--muted);font-size:12px">Data nahi</div>'}</div><div style="font-size:10px;color:var(--muted);font-weight:700;text-transform:uppercase;margin-bottom:6px">Top 15 Sequences</div>${top.slice(0,15).map(t=>`<div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04)"><span class="badge" style="background:${bg()};color:${h}">${t.f}</span><span style="color:var(--muted)">→</span><span class="badge" style="background:rgba(255,255,255,.06);color:var(--text)">${t.t}</span><span style="margin-left:auto;color:var(--muted);font-size:11px">${t.c}x</span></div>`).join('')}`;
+}
+function rDig(){
+  const dd=D();if(!dd.length)return;
+  const od=Object.fromEntries(freq(dd.flatMap(x=>x.open.split('')))),cd=Object.fromEntries(freq(dd.flatMap(x=>x.close.split(''))));
+  const mo=Math.max(...Object.values(od),1),mc=Math.max(...Object.values(cd),1);
+  function mg(m,mx){return Array.from({length:10},(_,i)=>i+'').map(d=>{const c=m[d]||0,p=Math.round((c/mx)*100),cl=p>70?'#f75b5b':p>40?'#f0b429':'#5b8af7';return`<div style="background:var(--bg3);border-radius:var(--rs);padding:8px 4px;text-align:center;border:1px solid var(--border)"><div style="font-size:16px;font-weight:800;color:${cl}">${d}</div><div style="font-size:10px;color:var(--muted)">${c}x</div><div style="height:3px;border-radius:2px;background:${cl};width:${Math.max(p,8)}%;margin:4px auto"></div><div style="font-size:9px;color:${cl};font-weight:700">${p>70?'HOT':p>40?'WARM':'COLD'}</div></div>`;}).join('');}
+  document.getElementById('dig-open').innerHTML=mg(od,mo);
+  document.getElementById('dig-close').innerHTML=mg(cd,mc);
+}
+
+// ============ TRENDS ============
+function rTrends(){
+  const dd=D();if(!dd.length)return;
+  const mon={};dd.forEach(r=>{if(!r.date)return;const p=r.date.split('/');if(p.length<3)return;const k=p[2]+'-'+p[1].padStart(2,'0');if(!mon[k])mon[k]={count:0,jodis:[]};mon[k].count++;mon[k].jodis.push(r.jodi);});
+  const months=Object.keys(mon).sort().slice(-12),h=hex();
+  if(cM){cM.destroy();cM=null;}
+  const ctx=document.getElementById('cmon');
+  if(ctx&&months.length){cM=new Chart(ctx,{type:'bar',data:{labels:months.map(m=>{const p=m.split('-');const mn=['','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];return mn[parseInt(p[1])]+'\''+p[0].slice(2);}),datasets:[{data:months.map(m=>mon[m].count),backgroundColor:h+'88',borderColor:h,borderWidth:1,borderRadius:5}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#6060a0',font:{size:10}},grid:{color:'rgba(255,255,255,0.04)'}},y:{ticks:{color:'#6060a0'},grid:{color:'rgba(255,255,255,0.04)'},beginAtZero:true}}}});}
+  const mn=['','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  document.getElementById('montbl').innerHTML=months.slice().reverse().map(m=>{const md=mon[m],f=freq(md.jodis),tj=f[0]?f[0][0]:'--',tc=f[0]?f[0][1]:0,p=m.split('-');return`<tr><td>${mn[parseInt(p[1])]} ${p[0]}</td><td>${md.count}</td><td><span class="badge" style="background:${bg()};color:${h}">${tj}</span></td><td style="color:var(--muted)">${tc}x</td></tr>`;}).join('');
+}
+function rDRange(){
+  const from=document.getElementById('dr-f').value.trim(),to=document.getElementById('dr-t').value.trim();
+  function pd(s){const p=s.split('/');if(p.length<3)return null;return new Date(parseInt(p[2]),parseInt(p[1])-1,parseInt(p[0]));}
+  let rows=[...D()];
+  if(from){const fd=pd(from);if(fd)rows=rows.filter(r=>{const rd=pd(r.date);return rd&&rd>=fd;});}
+  if(to){const td=pd(to);if(td)rows=rows.filter(r=>{const rd=pd(r.date);return rd&&rd<=td;});}
+  const el=document.getElementById('dr-res');
+  if(!rows.length){el.innerHTML='<div style="color:var(--muted);font-size:12px;text-align:center;padding:10px">Koi result nahi.</div>';return;}
+  const jf=freq(rows.map(r=>r.jodi)),h=hex();
+  el.innerHTML=`<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px"><div class="met"><div class="lb">Records</div><div class="vl" style="color:${h}">${rows.length}</div></div><div class="met"><div class="lb">Top Jodi</div><div class="vl" style="color:${h}">${jf[0]?jf[0][0]:'--'}</div></div><div class="met"><div class="lb">Unique Jodis</div><div class="vl" style="color:${h}">${jf.length}</div></div></div><div style="font-size:10px;color:var(--muted);font-weight:700;margin-bottom:5px">HOT JODIS</div><div style="margin-bottom:10px">${jf.slice(0,10).map(([j,c])=>`<span class="badge" style="background:${bg()};color:${h}">${j} <span style="opacity:.6">${c}x</span></span>`).join('')}</div><div class="tw"><table><thead><tr><th>Date</th><th>Open</th><th>Jodi</th><th>Close</th></tr></thead><tbody>${rows.slice(-50).reverse().map(r=>`<tr><td>${r.date}</td><td>${r.open}</td><td><span class="badge" style="background:${bg()};color:${h}">${r.jodi}</span></td><td>${r.close}</td></tr>`).join('')}</tbody></table></div>${rows.length>50?`<div style="font-size:11px;color:var(--muted);text-align:center;margin-top:6px">Last 50 of ${rows.length}</div>`:''}`;
+}
+
+// ============ SETTINGS ============
+function rSettings(){
+  const tot=GIDS.reduce((s,id)=>(DATA[id]||[]).length+s,0);
+  const act=GIDS.filter(id=>(DATA[id]||[]).length>2).length;
+  document.getElementById('s-tot').textContent=tot.toLocaleString();
+  document.getElementById('s-act').textContent=act+'/'+GIDS.length;
+}
+function backupAll(){
+  const b={_v:'3.0',_date:new Date().toISOString()};
+  GIDS.forEach(id=>{b[id]=DATA[id]||[];});
+  const a=document.createElement('a');
+  a.href='data:application/json;charset=utf-8,'+encodeURIComponent(JSON.stringify(b,null,2));
+  a.download='MatkaKing_Backup_'+new Date().toISOString().slice(0,10)+'.json';a.click();
+}
+function restoreAll(e){
+  const f=e.target.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=ev=>{try{const b=JSON.parse(ev.target.result);let n=0;GIDS.forEach(id=>{if(b[id]&&Array.isArray(b[id])){DATA[id]=b[id];save(id);n++;}});alert(n+' games restore ho gaye!');rDash();rSettings();}catch(err){alert('Invalid file!');}};
+  r.readAsText(f);e.target.value='';
+}
+function expAll(){
+  let csv='';GIDS.forEach(id=>{const dd=DATA[id]||[];if(dd.length){csv+='\n# '+GN[id]+'\nDate,Open,Jodi,Close\n'+dd.map(r=>`${r.date},${r.open},${r.jodi},${r.close}`).join('\n')+'\n';}});
+  const a=document.createElement('a');a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);a.download='MatkaKing_AllGames.csv';a.click();
+}
+function resetGame(){
+  if(confirm(GN[CG]+' reset karo?')){DATA[CG]=parseSeed(CG);save(CG);uh();alert('Reset done!');rDash();}}
+
+// ============ INIT ============
+loadAll();
+buildGrid();
+rDash();
+rPL();
+uh();
+</script>
+</body>
+</html>
